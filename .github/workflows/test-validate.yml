@@ -14,7 +14,7 @@ jobs:
 
       # Must pass — no raw SQL in this codebase (uses parameterized queries)
       - name: Ensure no raw SQL string concatenation
-        uses: VecGrep/action@v0.1.1
+        uses: VecGrep/action@v0.1.3
         with:
           mode: validate
           query: "raw SQL string concatenation format f-string execute cursor unsafe"
@@ -24,7 +24,7 @@ jobs:
 
       # Must pass — no hardcoded credentials
       - name: Ensure no hardcoded credentials
-        uses: VecGrep/action@v0.1.1
+        uses: VecGrep/action@v0.1.3
         with:
           mode: validate
           query: "hardcoded password secret api key token credential plaintext"
@@ -34,7 +34,7 @@ jobs:
 
       # Must pass — authentication logic exists
       - name: Require authentication logic
-        uses: VecGrep/action@v0.1.1
+        uses: VecGrep/action@v0.1.3
         with:
           mode: validate
           query: "user authentication login token session verify password"
@@ -44,7 +44,7 @@ jobs:
 
       # Must pass — payment logic exists
       - name: Require payment processing logic
-        uses: VecGrep/action@v0.1.1
+        uses: VecGrep/action@v0.1.3
         with:
           mode: validate
           query: "payment charge refund transaction amount"
@@ -54,7 +54,7 @@ jobs:
 
       # Must pass — database uses parameterized queries
       - name: Require parameterized database queries
-        uses: VecGrep/action@v0.1.1
+        uses: VecGrep/action@v0.1.3
         with:
           mode: validate
           query: "parameterized query placeholder prepared statement safe execute"
