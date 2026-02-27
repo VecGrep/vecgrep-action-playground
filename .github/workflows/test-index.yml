@@ -14,7 +14,7 @@ jobs:
 
       - name: Index codebase with VecGrep
         id: index
-        uses: VecGrep/action@v0.1.3
+        uses: VecGrep/action@v0.1.4
         with:
           mode: index
           path: src/

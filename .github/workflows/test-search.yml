@@ -14,7 +14,7 @@ jobs:
 
       - name: Search for authentication logic
         id: search_auth
-        uses: VecGrep/action@v0.1.3
+        uses: VecGrep/action@v0.1.4
         with:
           mode: search
           query: "user authentication token session login"
@@ -24,7 +24,7 @@ jobs:
 
       - name: Search for payment processing
         id: search_payments
-        uses: VecGrep/action@v0.1.3
+        uses: VecGrep/action@v0.1.4
         with:
           mode: search
           query: "payment charge refund transaction"
@@ -34,7 +34,7 @@ jobs:
 
       - name: Search for database query execution
         id: search_db
-        uses: VecGrep/action@v0.1.3
+        uses: VecGrep/action@v0.1.4
         with:
           mode: search
           query: "database connection pool execute query"
