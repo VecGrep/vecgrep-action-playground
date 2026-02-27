@@ -1,0 +1,23 @@
+name: "Test: analyze mode"
+
+on:
+  pull_request:
+
+jobs:
+  analyze:
+    name: PR analysis
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Analyze PR and comment related code
+        uses: VecGrep/action@v0.1.2
+        with:
+          mode: analyze
+          path: src/
+          top_k: "5"
+          min_score: "0.72"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
