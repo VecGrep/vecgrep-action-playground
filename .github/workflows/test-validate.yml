@@ -1,0 +1,63 @@
+name: "Test: validate mode"
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    name: Architectural validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Must pass — no raw SQL in this codebase (uses parameterized queries)
+      - name: Ensure no raw SQL string concatenation
+        uses: VecGrep/action@v0.1.0
+        with:
+          mode: validate
+          query: "raw SQL string concatenation format f-string execute cursor unsafe"
+          path: src/
+          min_score: "0.88"
+          fail_on_match: "true"
+
+      # Must pass — no hardcoded credentials
+      - name: Ensure no hardcoded credentials
+        uses: VecGrep/action@v0.1.0
+        with:
+          mode: validate
+          query: "hardcoded password secret api key token credential plaintext"
+          path: src/
+          min_score: "0.85"
+          fail_on_match: "true"
+
+      # Must pass — authentication logic exists
+      - name: Require authentication logic
+        uses: VecGrep/action@v0.1.0
+        with:
+          mode: validate
+          query: "user authentication login token session verify password"
+          path: src/
+          min_score: "0.75"
+          fail_on_no_match: "true"
+
+      # Must pass — payment logic exists
+      - name: Require payment processing logic
+        uses: VecGrep/action@v0.1.0
+        with:
+          mode: validate
+          query: "payment charge refund transaction amount"
+          path: src/
+          min_score: "0.75"
+          fail_on_no_match: "true"
+
+      # Must pass — database uses parameterized queries
+      - name: Require parameterized database queries
+        uses: VecGrep/action@v0.1.0
+        with:
+          mode: validate
+          query: "parameterized query placeholder prepared statement safe execute"
+          path: src/
+          min_score: "0.72"
+          fail_on_no_match: "true"

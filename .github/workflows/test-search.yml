@@ -1,0 +1,49 @@
+name: "Test: search mode"
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  search:
+    name: Semantic search
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Search for authentication logic
+        id: search_auth
+        uses: VecGrep/action@v0.1.0
+        with:
+          mode: search
+          query: "user authentication token session login"
+          path: src/
+          top_k: "5"
+          min_score: "0.6"
+
+      - name: Search for payment processing
+        id: search_payments
+        uses: VecGrep/action@v0.1.0
+        with:
+          mode: search
+          query: "payment charge refund transaction"
+          path: src/
+          top_k: "5"
+          min_score: "0.6"
+
+      - name: Search for database query execution
+        id: search_db
+        uses: VecGrep/action@v0.1.0
+        with:
+          mode: search
+          query: "database connection pool execute query"
+          path: src/
+          top_k: "5"
+          min_score: "0.6"
+
+      - name: Print result counts
+        run: |
+          echo "Auth matches:    ${{ steps.search_auth.outputs.match_count }}"
+          echo "Payment matches: ${{ steps.search_payments.outputs.match_count }}"
+          echo "DB matches:      ${{ steps.search_db.outputs.match_count }}"

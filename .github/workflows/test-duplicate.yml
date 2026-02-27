@@ -1,0 +1,39 @@
+name: "Test: duplicate mode"
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  duplicate:
+    name: Duplicate logic detection
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Informational — report duplicates but do not fail
+      # processor.py and invoice.py are intentionally similar
+      # to validate that duplicate detection finds them
+      - name: Detect duplicate logic (informational)
+        id: duplicates
+        uses: VecGrep/action@v0.1.0
+        with:
+          mode: duplicate
+          path: src/
+          min_score: "0.88"
+          fail_on_match: "false"
+
+      - name: Print duplicate count
+        run: |
+          echo "Duplicate pairs found: ${{ steps.duplicates.outputs.match_count }}"
+          echo "${{ steps.duplicates.outputs.results }}"
+
+      # Strict check — fail if near-identical code is introduced (score >= 0.97)
+      - name: Block near-identical code
+        uses: VecGrep/action@v0.1.0
+        with:
+          mode: duplicate
+          path: src/
+          min_score: "0.97"
+          fail_on_match: "true"

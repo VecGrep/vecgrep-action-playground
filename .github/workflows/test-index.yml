@@ -1,0 +1,23 @@
+name: "Test: index mode"
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  index:
+    name: Index codebase
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Index codebase with VecGrep
+        id: index
+        uses: VecGrep/action@v0.1.0
+        with:
+          mode: index
+          path: src/
+
+      - name: Print index stats
+        run: echo "${{ steps.index.outputs.index_stats }}"

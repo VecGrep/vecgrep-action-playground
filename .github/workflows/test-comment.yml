@@ -1,0 +1,36 @@
+name: "Test: comment mode"
+
+on:
+  pull_request:
+
+jobs:
+  comment:
+    name: PR semantic comment
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Comment related authentication code on PR
+        uses: VecGrep/action@v0.1.0
+        with:
+          mode: comment
+          query: "user authentication login session token verification"
+          path: src/
+          top_k: "4"
+          min_score: "0.70"
+          comment_header: "Related authentication code"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Comment related payment code on PR
+        uses: VecGrep/action@v0.1.0
+        with:
+          mode: comment
+          query: "payment charge refund invoice transaction"
+          path: src/
+          top_k: "4"
+          min_score: "0.70"
+          comment_header: "Related payment code"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
