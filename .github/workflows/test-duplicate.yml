@@ -17,7 +17,7 @@ jobs:
       # to validate that duplicate detection finds them
       - name: Detect duplicate logic (informational)
         id: duplicates
-        uses: VecGrep/action@v0.1.0
+        uses: VecGrep/action@v0.1.1
         with:
           mode: duplicate
           path: src/
@@ -31,7 +31,7 @@ jobs:
 
       # Strict check — fail if near-identical code is introduced (score >= 0.97)
       - name: Block near-identical code
-        uses: VecGrep/action@v0.1.0
+        uses: VecGrep/action@v0.1.1
         with:
           mode: duplicate
           path: src/

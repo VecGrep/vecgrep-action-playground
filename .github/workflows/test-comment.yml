@@ -14,7 +14,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Comment related authentication code on PR
-        uses: VecGrep/action@v0.1.0
+        uses: VecGrep/action@v0.1.1
         with:
           mode: comment
           query: "user authentication login session token verification"
@@ -25,7 +25,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Comment related payment code on PR
-        uses: VecGrep/action@v0.1.0
+        uses: VecGrep/action@v0.1.1
         with:
           mode: comment
           query: "payment charge refund invoice transaction"
